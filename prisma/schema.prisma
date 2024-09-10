@@ -1,0 +1,205 @@
+// // This is your Prisma schema file,
+// // learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
+
+
+// model User {
+//   id        Int      @id @default(autoincrement())
+//   name      String
+//   email     String   @unique
+//   password  String
+//   isstudent Boolean  @default(true)
+//   isteacher Boolean  @default(false)
+//   isadmin   Boolean  @default(false)
+//   classes   Class[]  @relation("UserClasses") // Relation to Class
+// }
+
+// model MCQ {
+//   id        Int      @id @default(autoincrement())
+//   question  String
+//   options   Option[] // Relation to Option model
+//   classId   Int      // Foreign key to relate to Class model
+//   class     Class    @relation(fields: [classId], references: [id]) // Relation to Class model
+// }
+
+// model Option {
+//   id      Int    @id @default(autoincrement())
+//   text    String
+//   correct Boolean
+//   mcqId   Int    // Foreign key to associate with the MCQ model
+//   mcq     MCQ    @relation(fields: [mcqId], references: [id])
+// }
+
+// model Class {
+//   id        Int     @id @default(autoincrement())
+//   name      String
+//   mcqs      MCQ[]   // Relation to MCQs in the class
+//   users     User[]  @relation("UserClasses") // Relation to Users (students/teachers in the class)
+//   batchId   Int     // Foreign key to relate to Batch model
+//   batch     Batch   @relation(fields: [batchId], references: [id]) // Relation to Batch model
+// }
+
+// model Batch {
+//   id        Int     @id @default(autoincrement())
+//   name      String
+//   classes   Class[] // Relation to Class model
+// }
+
+
+// model Liveclass {
+//   id           Int      @id @default(autoincrement())
+//   incorrect    String   @default("[]") // JSON array of IDs
+//   correct      String   @default("[]") // JSON array of IDs
+//   unattempted  String   @default("[]") // JSON array of IDs
+// }
+
+
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
+
+
+// model User {
+//   id        Int      @id @default(autoincrement())
+//   name      String
+//   email     String   @unique
+//   password  String
+//   isstudent Boolean  @default(true)
+//   isteacher Boolean  @default(false)
+//   isadmin   Boolean  @default(false)
+//   classes   Class[]  @relation("UserClasses") // Relation to Class
+// }
+
+// model MCQ {
+//   id        Int      @id @default(autoincrement())
+//   question  String
+//   options   Option[] // Relation to Option model
+//   classId   Int      // Foreign key to relate to Class model
+//   class     Class    @relation(fields: [classId], references: [id]) // Relation to Class model
+//   enable  Boolean  @default(false)
+//   published Boolean  @default(false)
+// }
+
+// model Option {
+//   id      Int    @id @default(autoincrement())
+//   text    String
+//   correct Boolean
+//   mcqId   Int    // Foreign key to associate with the MCQ model
+//   mcq     MCQ    @relation(fields: [mcqId], references: [id])
+// }
+
+// model Class {
+//   id        Int     @id @default(autoincrement())
+//   name      String
+//   mcqs      MCQ[]   // Relation to MCQs in the class
+//   users     User[]  @relation("UserClasses") // Relation to Users (students/teachers in the class)
+//   batchId   Int     // Foreign key to relate to Batch model
+//   batch     Batch   @relation(fields: [batchId], references: [id]) // Relation to Batch model
+// }
+
+// model Batch {
+//   id        Int     @id @default(autoincrement())
+//   name      String
+//   classes   Class[] // Relation to Class model
+// }
+
+
+// model Liveclass {
+//   id           Int      @id @default(autoincrement())
+//   incorrect    String   @default("[]") // JSON array of IDs
+//   correct      String   @default("[]") // JSON array of IDs
+//   unattempted  String   @default("[]") // JSON array of IDs
+// }
+
+
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  isstudent Boolean  @default(true)
+  isteacher Boolean  @default(false)
+  isadmin   Boolean  @default(false)
+  classes   Class[]  @relation("UserClasses") // Relation to Class
+}
+
+model MCQ {
+  id        Int      @id @default(autoincrement())
+  question  String
+  options   Option[] // Relation to Option model
+  classId   Int      // Foreign key to relate to Class model
+  class     Class    @relation(fields: [classId], references: [id]) // Relation to Class model
+  enable  Boolean  @default(false)
+  published Boolean  @default(false)
+}
+
+model Option {
+  id      Int    @id @default(autoincrement())
+  text    String
+  correct Boolean
+  mcqId   Int    // Foreign key to associate with the MCQ model
+  mcq     MCQ    @relation(fields: [mcqId], references: [id])
+}
+
+model Class {
+  id        Int     @id @default(autoincrement())
+  name      String
+  mcqs      MCQ[]   // Relation to MCQs in the class
+  users     User[]  @relation("UserClasses") // Relation to Users (students/teachers in the class)
+  batchId   Int     // Foreign key to relate to Batch model
+  batch     Batch   @relation(fields: [batchId], references: [id]) // Relation to Batch model
+}
+
+model Batch {
+  id        Int     @id @default(autoincrement())
+  name      String
+  classes   Class[] // Relation to Class model
+}
+
+
+model Liveclass {
+  id           Int      @id @default(autoincrement())
+  incorrect    String   @default("[]") // JSON array of IDs
+  correct      String   @default("[]") // JSON array of IDs
+  unattempted  String   @default("[]") // JSON array of IDs
+  total        Int      @default(0)
+}
+
