@@ -1,3 +1,4 @@
+
 "use client"
 import { useState } from "react";
 import axios from "axios";
@@ -17,7 +18,7 @@ export function CodingSection() {
             headers: {
                 "Content-Type": "application/json",
                 "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
-                "x-rapidapi-key": "your-rapidapi-key-here",
+                "x-rapidapi-key": "3c1c6acf8emsh8dca11b467220aap13fcb1jsn8353cbd2da19", // Your RapidAPI Key
             },
             data: {
                 source_code: code,
@@ -30,7 +31,7 @@ export function CodingSection() {
             const response = await axios(config);
             setOutput(response.data.stdout || response.data.stderr);
         } catch (error) {
-            setOutput("Error executing code");
+            setOutput("Error executing code: " + error.message);
         }
     };
 

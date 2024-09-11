@@ -6,7 +6,6 @@ import { MCQList } from "./teachermcq";
 import { ParticipationChart } from "./participationchart";
 import { ClassData, updateMCQ } from "../app/server/class";
 import { Participation } from "../app/teacherserver/participation";
-import { ClearLiveClassData } from "../app/teacherserver/end";
 
 function TeacherDashboardComponent() {
     const [mcqs, setMcqs] = useState(null);
@@ -52,6 +51,14 @@ function TeacherDashboardComponent() {
         }
     }
 
+    // Load MCQs repeatedly
+    async function repeatClickOfParticipation() {
+        await handleParticipationClick();
+        setInterval(async () => {
+            await handleParticipationClick();
+        }, 2000);
+    }
+
     async function handleMCQUpdate(mcqId, enable, published) {
         try {
             await updateMCQ({ id: mcqId, enable, published });
@@ -60,6 +67,7 @@ function TeacherDashboardComponent() {
             console.error("Error updating MCQ:", error);
         }
     }
+
 
     if (loading) {
         return <p>Loading...</p>;
@@ -79,7 +87,8 @@ function TeacherDashboardComponent() {
                 Questions
             </button>
             <button
-                onClick={handleParticipationClick}
+                // onClick={handleParticipationClick}
+                onClick={() => { handleParticipationClick(); repeatClickOfParticipation(); }}
                 className="px-4 py-2 bg-blue-600 text-white text-lg font-semibold rounded-md shadow-md hover:bg-blue-700 transition-all"
             >
                 Participation
